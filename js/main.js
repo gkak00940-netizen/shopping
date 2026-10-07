@@ -178,8 +178,24 @@ function initFilters() {
   });
 }
 
+/* ---------- 하위 페이지에서 넘어온 품목·검색어 적용 ----------
+   하위 페이지의 품목 메뉴는 index.html?category=yuja#products,
+   검색은 index.html?q=검색어 로 이동합니다. */
+function applyUrlParams() {
+  const params = new URLSearchParams(location.search);
+  const keyword = params.get('q');
+  const category = params.get('category');
+
+  if (keyword) {
+    searchKeyword(keyword);
+  } else if (category === 'all' || CATEGORIES[category]) {
+    setCategory(category);
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   renderProducts();
   initProductActions();
   initFilters();
+  applyUrlParams();
 });

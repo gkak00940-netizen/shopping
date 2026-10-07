@@ -1,0 +1,102 @@
+/* =========================================================
+   S2 상품 상세 (html/product.html)
+   - 지금: .detail-top (사진 + 정보 + 구매 영역) 기본 배치
+   - 7단계: 휴대폰 화면 세부 조정
+   - 8단계: 세부 디자인
+   ========================================================= */
+
+/* .detail-back    목록으로 버튼 */
+/* .detail-desc    상품 설명 */
+/* .detail-guide   배송·교환 안내 */
+/* .detail-empty   상품을 찾을 수 없을 때 */
+
+/* ---------- 사진 + 상품 정보 (PC 2단) ---------- */
+.detail-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+/* 상품 사진: 정사각형. 사진이 없으면 배경색 + 이모지 */
+.detail-image {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.detail-emoji { font-size: 9rem; }
+.detail-image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.detail-photo-notice {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  margin: 0;
+}
+
+/* 상품 정보 */
+.detail-badges { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 8px; }
+.detail-badges .badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--yellow-soft);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.detail-info h2 { margin: 0 0 12px; font-size: 1.8rem; }
+.detail-info p { margin: 0 0 6px; }
+
+/* 가격: 할인율(빨강) · 판매가 · 정가 */
+.detail-price {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  margin: 16px 0 24px;
+}
+.detail-price .rate { font-size: 1.5rem; font-weight: 800; color: var(--red); }
+.detail-price strong { font-size: 1.8rem; font-weight: 800; }
+.detail-price del { color: #888; }
+
+/* 구매 영역: 수량 · 합계 · 버튼을 세로로 */
+.detail-buy {
+  display: grid;
+  gap: 12px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.detail-buy .qty-box { justify-self: start; }
+.detail-total { font-size: 1.1rem; }
+.detail-total strong { font-size: 1.4rem; }
+
+/* ---------- 고객 후기 (상품 설명 위) ---------- */
+.detail-review-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+.detail-review-list li {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.detail-review-list p { margin: 0; }
+.detail-review-list .stars { color: var(--yellow); font-size: 1.1rem; }
+.detail-review-list .review-text { margin: 8px 0; }
+.detail-review-list .review-meta { font-size: 0.85rem; color: var(--text-sub); }
+
+/* 휴대폰: 1단 (사진 → 정보 → 구매 영역) */
+@media (max-width: 768px) {
+  .detail-top { grid-template-columns: 1fr; gap: 24px; }
+  .detail-emoji { font-size: 6rem; }
+}

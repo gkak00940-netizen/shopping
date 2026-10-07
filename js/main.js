@@ -178,6 +178,54 @@ function initFilters() {
   });
 }
 
+/* ---------- 제철 배너 사진 슬라이드 ----------
+   4초마다 다음 사진으로 바꿉니다. [멈춤] 버튼으로 멈추고 다시 재생할 수 있습니다.
+   기기에서 "움직임 줄이기"를 켠 사용자에게는 자동으로 바꾸지 않습니다. */
+const SLIDE_INTERVAL = 4000; // 사진이 바뀌는 간격 (1000 = 1초)
+
+function initSeasonSlider() {
+  const slider = document.getElementById('seasonSlider');
+  if (!slider) return;
+
+  // 파일이 없는 사진은 빼고 남은 사진만 돌립니다.
+  slider.querySelectorAll('.season-slide').forEach(img => {
+    img.addEventListener('error', () => img.remove());
+  });
+
+  const pauseBtn = document.getElementById('seasonPause');
+  let current = 0;
+  let timer = null;
+
+  function showNext() {
+    const slides = slider.querySelectorAll('.season-slide');
+    if (slides.length < 2) return;
+    slides[current % slides.length].classList.remove('is-active');
+    current = (current + 1) % slides.length;
+    slides[current].classList.add('is-active');
+  }
+
+  function play() {
+    timer = setInterval(showNext, SLIDE_INTERVAL);
+    pauseBtn.textContent = '❚❚ 멈춤';
+    pauseBtn.setAttribute('aria-pressed', 'false');
+  }
+
+  function stop() {
+    clearInterval(timer);
+    timer = null;
+    pauseBtn.textContent = '▶ 재생';
+    pauseBtn.setAttribute('aria-pressed', 'true');
+  }
+
+  pauseBtn.addEventListener('click', () => (timer ? stop() : play()));
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    stop();
+  } else {
+    play();
+  }
+}
+
 /* ---------- 하위 페이지에서 넘어온 품목·검색어 적용 ----------
    하위 페이지의 품목 메뉴는 index.html?category=yuja#products,
    검색은 index.html?q=검색어 로 이동합니다. */
@@ -197,5 +245,6 @@ document.addEventListener('DOMContentLoaded', () => {
   renderProducts();
   initProductActions();
   initFilters();
+  initSeasonSlider();
   applyUrlParams();
 });

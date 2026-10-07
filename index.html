@@ -109,10 +109,15 @@
           <p class="season-desc">갓 수확해 고흥 산지에서 바로 보내드려요</p>
           <a href="#products" class="btn btn-primary btn-lg" id="seasonLink">제철 상품 보러 가기</a>
         </div>
-        <div class="season-image">
-          <!-- 대표 상품 사진: img/main/hero-season.jpg 에 넣으면 자동으로 보입니다 -->
+        <!-- 제철 사진 슬라이드: 4초마다 다음 사진으로 바뀝니다 (js/main.js initSeasonSlider)
+             사진을 바꾸거나 추가하려면 아래 img 를 고치면 됩니다. 첫 사진에만 class="is-active" -->
+        <div class="season-image" id="seasonSlider" role="group" aria-roledescription="슬라이드" aria-label="제철 농산물 사진">
           <div class="season-placeholder" aria-hidden="true"><span>🍋</span><span>🍎</span><span>🌾</span></div>
-          <img src="img/main/hero-season.jpg" alt="고흥 제철 농산물 유자, 석류, 햅쌀" onerror="this.remove()">
+          <img class="season-slide is-active" src="img/main/season-yuja.png" alt="나무에 노랗게 익은 고흥 유자">
+          <img class="season-slide" src="img/main/season-pomegranate.png" alt="나무에 붉게 익은 고흥 석류">
+          <img class="season-slide" src="img/main/season-rice.png" alt="손바닥에 담은 고흥 햅쌀">
+          <!-- 움직이는 화면을 멈출 수 있는 버튼 (접근성: 자동으로 바뀌는 화면은 멈출 수 있어야 함) -->
+          <button type="button" class="season-pause" id="seasonPause" aria-pressed="false">❚❚ 멈춤</button>
         </div>
       </div>
     </section>

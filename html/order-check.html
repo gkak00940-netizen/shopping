@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>주문 조회 - 고흥장터</title>
-  <meta name="description" content="주문번호와 휴대폰 번호로 고흥장터 주문을 확인하세요">
+  <meta name="description" content="휴대폰 번호와 주문 조회 비밀번호로 고흥장터 주문을 확인하세요">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -80,34 +80,41 @@
       <section aria-label="주문 조회 입력">
         <form class="check-form" id="checkForm" novalidate>
           <div class="form-row">
-            <label for="checkNo">주문번호</label>
-            <input type="text" id="checkNo" name="checkNo" placeholder="예) GH20261007-0001">
-          </div>
-          <div class="form-row">
             <label for="checkPhone">휴대폰 번호 (주문하신 분)</label>
             <input type="tel" id="checkPhone" name="checkPhone" inputmode="numeric" placeholder="예) 010-1234-5678">
           </div>
+          <div class="form-row">
+            <label for="checkPw">주문 조회 비밀번호 (숫자 4자리)</label>
+            <input type="password" id="checkPw" name="checkPw" inputmode="numeric" maxlength="4" autocomplete="off">
+          </div>
           <button type="submit" class="btn btn-primary btn-lg btn-block">조회하기</button>
+          <p>비밀번호를 잊으셨다면 전화(<a href="tel:061-000-0000">061-000-0000</a>)로 문의해 주세요.</p>
         </form>
       </section>
 
-      <!-- 조회 결과 (6-3단계부터 주문을 찾았을 때만 보임) -->
+      <!-- 조회 결과: 주문 목록 (6-6단계부터 주문을 찾았을 때만 보임)
+           주문마다 아래 li 하나. 최근 주문이 위에 옵니다. 받는 분·주소는 보여 주지 않습니다. -->
       <section class="check-result" id="checkResult" aria-live="polite">
         <p class="temp">[임시 확인용] 지금은 항상 보이지만, 나중에는 주문을 찾았을 때만 보입니다.</p>
-        <h3>주문 내역</h3>
-        <dl>
-          <div><dt>주문번호</dt><dd id="resultOrderNo" class="temp">[임시] GH20261007-0001</dd></div>
-          <div><dt>주문일</dt><dd id="resultDate" class="temp">[임시] 2026년 10월 7일</dd></div>
-          <div><dt>상품</dt><dd id="resultItems" class="temp">[임시] 상품명 × 수량</dd></div>
-          <div><dt>금액</dt><dd id="resultTotal" class="temp">[임시] 00,000원</dd></div>
-          <div><dt>상태</dt><dd id="resultStatus">입금 대기</dd></div>
-        </dl>
+        <h3>주문 내역 <span id="resultCount" class="temp">[임시] (1건)</span></h3>
+        <ul class="result-list" id="resultList">
+          <li>
+            <dl>
+              <div><dt>주문번호</dt><dd class="temp">[임시] GH20261007-0001</dd></div>
+              <div><dt>주문일</dt><dd class="temp">[임시] 2026년 10월 7일</dd></div>
+              <div><dt>상품</dt><dd class="temp">[임시] 상품명 × 수량</dd></div>
+              <div><dt>금액</dt><dd class="temp">[임시] 00,000원</dd></div>
+              <div><dt>상태</dt><dd class="temp">[임시] 입금 대기</dd></div>
+            </dl>
+          </li>
+        </ul>
       </section>
 
-      <!-- 결과 없음 (6-3단계부터 주문을 못 찾았을 때만 보임) -->
+      <!-- 결과 없음 / 잠금 (6-6단계부터 주문을 못 찾았을 때만 보임) -->
       <section class="check-empty" id="checkEmpty" aria-live="polite">
         <p class="temp">[임시 확인용] 지금은 항상 보이지만, 나중에는 주문을 못 찾았을 때만 보입니다.</p>
-        <p>주문을 찾을 수 없습니다. 주문번호를 다시 확인하시거나 전화로 문의해 주세요.</p>
+        <!-- 5번 틀려서 잠긴 경우에는 아래 문구를 "10분 뒤에 다시 시도해 주세요."로 바꿔 보여 줍니다. -->
+        <p id="checkEmptyMsg">주문을 찾을 수 없습니다. 휴대폰 번호와 비밀번호를 다시 확인하시거나 전화로 문의해 주세요.</p>
         <a href="tel:061-000-0000" class="btn btn-outline">📞 전화 문의</a>
       </section>
 

@@ -108,6 +108,17 @@
               <input type="tel" id="ordererPhone" name="ordererPhone" inputmode="numeric" placeholder="예) 010-1234-5678" autocomplete="tel">
               <p class="error-msg" id="ordererPhoneError"></p>
             </div>
+            <div class="form-row">
+              <label for="orderPw">주문 조회 비밀번호 (숫자 4자리)</label>
+              <p class="form-help" id="orderPwHelp">주문을 확인하실 때 휴대폰 번호와 함께 입력하시는 번호입니다.</p>
+              <input type="password" id="orderPw" name="orderPw" inputmode="numeric" maxlength="4" autocomplete="new-password" aria-describedby="orderPwHelp">
+              <p class="error-msg" id="orderPwError"></p>
+            </div>
+            <div class="form-row">
+              <label for="orderPwConfirm">비밀번호 확인</label>
+              <input type="password" id="orderPwConfirm" name="orderPwConfirm" inputmode="numeric" maxlength="4" autocomplete="new-password">
+              <p class="error-msg" id="orderPwConfirmError"></p>
+            </div>
           </section>
 
           <!-- 받으시는 분 -->
